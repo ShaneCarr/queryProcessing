@@ -57,10 +57,6 @@ def draw_database_data(category_property: str, value_property: str, operation_ty
     # Use legend to label slices, placed outside the chart
     # plt.legend(wedges, labels, title="Categories", loc="center left", bbox_to_anchor=(1, 0.5))
 
-    # Improve legibility
-    plt.setp(autotexts, size=8, weight="bold")
-
-
     explode = [0.1 if value < (sum(values) * 0.05) else 0 for value in values]
     plt.close('all')
 
@@ -71,6 +67,8 @@ def draw_database_data(category_property: str, value_property: str, operation_ty
     plt.ylabel(None)
     plt.xlabel(None)
     wedges, texts, autotexts = ax.pie(values,labels=labels, autopct='%1.1f%%',startangle=140,colors=colors)
+    # Improve legibility
+    plt.setp(autotexts, size=8, weight="bold")
     plt.title("Plot of " + operation_type + " vs " + value_property)
     ax.set_axis_off()
     plt.show()
