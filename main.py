@@ -24,5 +24,8 @@ if __name__ == '__main__':
     print(json_formatted)
 
     draw_database_data('class', 'calls', 'select', records)
+    draw_database_data('class', 'total_time', 'select', records)
+    draw_database_data('class', 'calls', 'update', records)
+    draw_database_data('class', 'total_time', 'update', records)
     convert_to_csv(records, 'data/output.csv')
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
