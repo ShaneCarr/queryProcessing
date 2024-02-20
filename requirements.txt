@@ -1,0 +1,4 @@
+certifi @ file:///private/tmp/python-certifi-20231211-18102-76ipel/certifi-2023.11.17
+pycairo @ file:///private/tmp/py3cairo-20231021-6574-xwz2b1/pycairo-1.25.1
+Pygments @ file:///private/tmp/pygments-20231121-5274-1rlyumb/pygments-2.17.2
+PyGObject==3.46.0
