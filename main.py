@@ -17,7 +17,7 @@ def print_hi(name):
 if __name__ == '__main__':
     print_hi('PyCharm')
 
-    with open('data/input.txt', 'r', encoding='utf-8') as file:
+    with open('data/input2.txt', 'r', encoding='utf-8') as file:
         data = file.read()
         records = parse_record(data)
     json_formatted = json.dumps(records, ensure_ascii=False, indent=4)
@@ -27,5 +27,5 @@ if __name__ == '__main__':
     draw_database_data('class', 'total_time', 'select', records)
     draw_database_data('class', 'calls', 'update', records)
     draw_database_data('class', 'total_time', 'update', records)
-    convert_to_csv(records, 'data/output.csv')
+    convert_to_csv(records, 'data/output2.csv')
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
