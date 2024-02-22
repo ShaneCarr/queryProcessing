@@ -1,4 +1,31 @@
 """
+uncategorized
+| where TIMESTAMP > ago(7d) and
+        tailed_path == "/var/log/service/headroom.log" and
+        (fqcn contains "inkshield")
+| extend data = parse_json(log_line)
+| extend metric = tostring(data["metric"])
+| extend cluster = tostring(data["cluster"])
+| extend value = toreal(data["value"])
+| extend table = tostring(data["table"])
+| extend tableType = iif(table == "users", "Users", "Other")
+| extend dbserver = case(
+    fqcn contains "altair", "messages",
+    fqcn contains "inkshield", "hdb",
+    "unknown"
+)
+//| where table == 'users'//or table == 'messages'
+| extend io_impact = case(
+    metric in ("seq_scan", "idx_scan", "n_tup_ins", "n_tup_upd", "n_tup_del", "vacuum_count", "indexsize", "tableTotalSize", "n_dead_tup"), "High",
+    metric in ("seq_tup_read", "idx_tup_read", "idx_tup_fetch", "n_mod_since_analyze", "n_live_tup", "autovacuum_count", "autoanalyze_count", "analyze_count"), "Medium",
+    "Low"
+)
+| where io_impact == "High"
+| project TIMESTAMP, cluster, dbserver, table, metric, value, io_impact, tableType
+| extend day = format_datetime(TIMESTAMP, 'yyyy-MM-dd')
+| summarize TotalHighImpactValue = sum(value) by day, tableType
+| order by day
+| render linechart
 
 
 // tables load on hdb
